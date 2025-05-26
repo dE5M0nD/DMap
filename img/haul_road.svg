@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="117.02398"
+   height="38.990013"
+   viewBox="0 0 117.02398 38.990013"
+   version="1.1"
+   id="svg1"
+   inkscape:export-filename="haul_road.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   sodipodi:docname="roads.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-1.3862498,-38.118355)">
+    <path
+       id="path5"
+       style="fill:#552200;stroke-width:3.35607"
+       d="m 5.7104685,37.94648 0.1347657,0.171875 -4.3300781,8.0625 29.4667969,29.541016 5.923828,-7.458985 z" />
+    <path
+       id="rect2"
+       style="fill:#552200;stroke-width:4.00226"
+       d="M 50.468281,38.118355 25.782734,70.50898 31.851094,76.426949 62.112812,38.118355 Z" />
+    <path
+       id="path6"
+       style="fill:#552200;stroke-width:3.88471"
+       d="m 63.0425,37.639839 0.162109,0.478516 -12.919922,0.302734 41.117196,37.94492 5.448818,-6.584375 z"
+       sodipodi:nodetypes="cccccc" />
+    <path
+       id="path2"
+       style="fill:#552200;stroke-width:3.57509"
+       d="M 111.105,37.671089 84.642893,68.65978 91.00539,76.829677 118.44484,44.316895 110.87453,38.098226 Z"
+       sodipodi:nodetypes="cccccc" />
+  </g>
+</svg>

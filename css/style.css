@@ -1,0 +1,70 @@
+html, body {margin: 0;height: 100%;}
+#map {width: 100%;background-color: white;}
+.ol-attribution ul{display: none;}
+.ol-zoom {display: none;}
+#topbar{ width: 100%; background-color: #000000; padding:3px; text-align: left; }
+.main-frame{ display: grid; grid-template-columns: 80% 19%; gap: 10px;height: 100vh;}
+.barlinks{position: absolute; right: 0; top: 0;  margin-top: 5px;}
+.barlinks li {display: inline-block;margin-right: 30px;}
+.barlinks li a{font-size: 11px !important; color: white;}
+.navgreen{ width: 100% !important; height: 30px !important;background-color: #000 !important; text-align:center !important; padding: 5px !important;}
+.navgreen span{ padding:5px !important;text-align:center !important;color: #fff !important; }
+#cordbar{ text-align: left; margin-left: 10px;	font-size: 10px;float: left;}
+.legend-frame{ height: 100%;}
+.toolbar{ display: grid; grid-template-columns: 5% 90%; gap: 20px;height: 100vh; }
+.legend{ background-color: #e9e9e9;padding-top: 10px; box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;}
+#menu-container{ margin-left: 25px; }
+#treecontrol a{color: #000 !important;}
+#treecontrol a span{ font-size: 12px !important; font-weight: bold !important; color: #000 !important; }
+.zoomCtrl{ margin-top: 20px;}
+.toolbar-menu{ position: absolute;right: 0; margin-top: 5px; margin-right: 235px; padding-top: 0px;padding-bottom:0px;border: 1px solid #999999;background-color: #e2e2e2;layer-background-color: #e2e2e2;
+	border-radius: 3px; -moz-border-radius: 3px;-webkit-border-radius: 3px;}
+.toolbar-menu div{ display: inline-table; padding:5px; border: 1px solid #ccc;margin: 0px;cursor: pointer;}	
+.toolbar-menu div img{ width: 20px; cursor: pointer;}	
+.slider-area-out { filter: alpha(opacity = 50); -moz-opacity: 0.5; opacity: 0.5;}
+#sliderTool { display: block; margin-top: 50px; width: 30px; height:220px;border: 1px solid #999999;background-color: #e2e2e2;
+	layer-background-color: #e2e2e2;border-radius: 15px; -moz-border-radius: 15px;-webkit-border-radius: 15px;
+}
+#zslider { margin-left: 5px; margin-right: 5px; height: 150px;}
+#slider-top { margin-top: 13px; margin-left: 5px; margin-right: 5px;  width: 16px;  cursor: pointer; 
+	background-color: #eeeeee; border: 1px solid #000000;border-radius: 8px 8px 0px 0px; 
+	-moz-border-radius: 8px 8px 0px 0px; -webkit-border-radius: 8px 8px 0px 0px;
+}
+#slider-bottom {padding-bottom:3px;padding-bottom:0px;  margin-left: 5px; margin-right: 5px; width: 16px;  cursor: pointer;
+ background-color: #eeeeee; border: 1px solid #000000; border-radius: 0px 0px 8px 8px;
+  -moz-border-radius: 0px 0px 8px 8px; -webkit-border-radius: 0px 0px 8px 8px;
+}
+#slider-bottom, #slider-top  img { overflow-clip-margin: content-box; overflow: clip;}
+.treeview-black li ul{background-color: #e9e9e9 !important; }
+#main-map {position: absolute;bottom: 0;background-color: #fff;height: 250px;width: 300px;border:2px solid white;margin: 10px;}
+.ol-popup { position: absolute;background-color: white; box-shadow: 0 1px 4px rgba(0,0,0,0.2);padding: 15px;
+border-radius: 10px;border: 1px solid #cccccc;bottom: 12px;left: -50px;min-width: 280px;}
+.ol-popup:after, .ol-popup:before {top: 100%; border: solid transparent;content: " "; height: 0; width: 0;
+position: absolute;pointer-events: none;}
+.ol-popup:after { border-top-color: white;border-width: 10px;left: 48px; margin-left: -10px; }
+.ol-popup:before { border-top-color: #cccccc;border-width: 11px;left: 48px;margin-left: -11px;}
+.ol-popup-closer { text-decoration: none; position: absolute;top: 2px;right: 8px;}
+.ol-popup-closer:after { content: "✖";}
+.tooltiptext {min-width:80px;font-size: 10px; position: absolute;z-index: 10;top:40px; background: #555;color:#fff;border-radius: 5px;padding: 4px;display: none;}
+#mydiv {position: absolute;z-index: 9;left:10px;top:35px; background-color: #f1f1f1;text-align: center;border: 1px solid #d3d3d3;width: 350px;overflow-x: auto;
+display: none;}
+#mydivheader {text-align: left;padding: 3px;cursor: move;z-index: 10;background-color: #000;color: #fff;
+}
+#mydivheader span{position: absolute;right: 0; margin-right: 10px;cursor: pointer;}
+#attr_table{ text-align: left; }
+#attr_ table th{padding: 2px;font-size: 11px;}
+#attr_ table tbody tr td{padding: 2px;font-size: 10px;}
+#attr_ div:first-child{ display: block !important;}
+#bgtitle{ position: absolute; top: 40px;width: 150px;right: 20px; display: none;box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;}
+
+@media only screen and (max-width: 1000px) {
+.toolbar-menu{margin-right: 140px;}
+#main-map {width: 125px;height: 120px;}
+}
+@media only screen and (min-width: 1300px) {
+#main-map {width: 200px;height: 180px;}
+}
+@media only screen and (min-width: 1400px) {
+.toolbar-menu{margin-right: 340px;}
+#main-map {width: 300px;height: 250px;}
+}
