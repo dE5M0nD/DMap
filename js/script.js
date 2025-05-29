@@ -242,6 +242,8 @@ map.on('singleclick', function (evt) {
 
 // makes the attribute table draggable
 
+dragElement(document.getElementById("printDialog"));
+
 dragElement(document.getElementById("mydiv"));
 
 function dragElement(elmnt) {

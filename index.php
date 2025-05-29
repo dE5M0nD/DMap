@@ -93,6 +93,50 @@
           </div>
         </div>
 
+        <div class="printDialog" id="printDialog">
+            <div  class="printDialogTitle">Print Settings</div>
+            <div class="printdlg_main" style="display:inline">
+              <div>Print Settings </div>
+              <div style="position:absolute; top:25px; right:15px">
+                <img src="img/printer.png" alt="ico" width="35" height="35">
+              </div>
+
+              <div class="printdlg_advanced" style="display: block;">Print Title 
+              <input type="text" name="printtitle" size="30" value="">
+              
+            </div>
+
+            <div class="printdlg_advanced" style="display: block;">
+      <label for="papersize">Paper size 
+      </label>
+      <select name="papersize">
+        <option value="A4" selected="selected">A4 
+        </option>
+        <option value="A3">A3 
+        </option>
+      </select>
+    </div>
+
+
+    <div class="printdlg_advanced" style="display: block;">
+      <label for="orientation">Page orientation 
+      </label>
+      <select name="orientation">
+        <option value="P" selected="selected">Portrait 
+        </option>
+        <option value="L">Landscape 
+        </option>
+      </select>
+    </div>
+
+    <div class="printdlg_button" style="text-align:center">
+      <input type="button" value="Create Print Page" onclick="submit();$('#pmDlgContainer').hide()">
+      
+    </div>
+
+            </div>
+        </div>
+
       <div  id="zoomCtrl" class="zoomCtrl sliderAreaOut slider-area-out">
 
             <div id="sliderTool">
