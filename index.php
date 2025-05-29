@@ -24,9 +24,13 @@
       <div id="topbar"> 
          <a class="active item" href="/"  style="background: #c0d06a !important"  ><img src="img/paceware.png"  style="max-width:100px !important;background: #085d08 !important" ></a>
         <div class="ui mini icon input">
-          <input type="text" placeholder="Search mini..." class="_keyword_search"  style="width: 120px !important;height: 20px !important;font-size: 10px !important">
+          <input type="text" placeholder="Search mini..."   list="featureSuggestions"  id="searchBox"  class="_keyword_search"  style="width: 120px !important;height: 20px !important;font-size: 10px !important">
           <i class="dropdown icon"></i>
         </div>
+      
+        <datalist id="featureSuggestions"></datalist>
+      <button onclick="searchFeatures()">Search</button>
+
         <ul  class="barlinks">
           <li>
               <a class="active item" href="/"  >

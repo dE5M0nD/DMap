@@ -10,11 +10,11 @@ $data = [
                 'tag' => 'h1',
                 'table' => [
                     'class' => 'ui celled table',
-                    'headers' => ['ID', 'FCLASS', 'NAME','CODE'],
+                    'headers' => ['ID', 'FCLASS', 'NAME','CODE',''],
                     'rows' => [
-                        ['John', 'Approved', 'None', 'F1'],
-                        ['Jamie', 'Approved', 'Requires call', 'F2'],
-                        ['Jill', 'Denied', 'None', 'F3']
+                        ['John', 'Approved', 'None', 'F1','@,-6.4847,8.9258'],
+                        ['Jamie', 'Approved', 'Requires call', 'F2','@,-0.1276,51.5074'],
+                        ['Jill', 'Denied', 'None', 'F3','@,-0.1276,51.5074']
                     ]
                 ]
             ],
@@ -23,11 +23,11 @@ $data = [
                 'tag' => 'h2',
                 'table' => [
                     'class' => 'ui celled table',
-                    'headers' => ['ID', 'FCLASS', 'NAME'],
+                    'headers' => ['ID', 'FCLASS', 'NAME',''],
                     'rows' => [
-                        ['John', 'Approved', 'None'],
-                        ['Jamie', 'Approved', 'Requires call'],
-                        ['Jill', 'Denied', 'None']
+                        ['John', 'Approved', 'None','@,9.123,-7.655'],
+                        ['Jamie', 'Approved', 'Requires call','@,9.123,-7.655'],
+                        ['Jill', 'Denied', 'None','@,9.123,-7.655']
                     ]
                 ]
             ],
@@ -48,6 +48,7 @@ $data = [
         ]
     ]
 ];
+
 
 // Function to generate HTML from the array
 function generateHtmlFromJson($jsonData) {
@@ -70,7 +71,13 @@ function generateHtmlFromJson($jsonData) {
         foreach ($section['table']['rows'] as $row) {
             $html .= '<tr>';
             foreach ($row as $cell) {
-                $html .= '<td>' . htmlspecialchars($cell) . '</td>';
+                $r = explode(',', $cell);
+                if($r[0] =='@' ){
+                    $html .= '<td  style="cursor: pointer;"> <span onclick="handleFindClick('.$r[1].','.$r[2].')" >' . '<i class="eye icon"></i>' . '</span></td>'; 
+                }else{
+                    $html .= '<td>' . htmlspecialchars($cell) . '</td>'; 
+                }
+               
             }
             $html .= '</tr>';
         }

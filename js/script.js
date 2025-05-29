@@ -4,8 +4,11 @@ map.on('pointermove', function(evt) {
     var coords = evt.coordinate;  
     var lon = coords[0].toFixed(6);
     var lat = coords[1].toFixed(6);
-    $(".xcord").text(lon);
-    $(".ycord").text(lat);
+    var sourceProjection = 'EPSG:3857'; // Change this based on your coordinate system
+    var destinationProjection = 'EPSG:4326'; // WGS 84 (Latitude/Longitude)
+    var lonLat = ol.proj.transform([lon, lat], sourceProjection, destinationProjection);
+    $(".xcord").text(lonLat[0]);
+    $(".ycord").text(lonLat[1]);
 });
 
 
@@ -277,3 +280,78 @@ function dragElement(elmnt) {
 }
 
 
+  function handleFindClick(lat, lon) {
+      var latitude= lat;
+      var longitude = lon
+     flyToLocation(latitude, longitude, 14);
+   }
+let pulsingLayer = null; // Store the current pulsing layer
+
+function addPulsingHighlight(lon, lat) {
+    // Remove the previous pulsing layer if it exists
+    if (pulsingLayer) {
+        map.removeLayer(pulsingLayer);
+    }
+
+    var feature = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat]))
+    });
+
+    var style = new ol.style.Style({
+        image: new ol.style.Circle({
+            radius: 10,
+            fill: new ol.style.Fill({ color: 'rgba(255, 0, 0, 0.5)' }),
+            stroke: new ol.style.Stroke({ color: 'red', width: 2 })
+        })
+    });
+
+    feature.setStyle(style);
+
+    pulsingLayer = new ol.layer.Vector({ // Store the new layer
+        source: new ol.source.Vector({
+            features: [feature]
+        })
+    });
+
+    map.addLayer(pulsingLayer);
+
+    // Animate pulsing effect by changing radius
+    let pulseRadius = 10;
+    let growing = true;
+
+    function animatePulse() {
+        if (growing) {
+            pulseRadius += 1;
+            if (pulseRadius >= 20) growing = false;
+        } else {
+            pulseRadius -= 1;
+            if (pulseRadius <= 10) growing = true;
+        }
+
+        feature.setStyle(new ol.style.Style({
+            image: new ol.style.Circle({
+                radius: pulseRadius,
+                fill: new ol.style.Fill({ color: 'rgba(255, 0, 0, 0.5)' }),
+                stroke: new ol.style.Stroke({ color: 'red', width: 2 })
+            })
+        }));
+
+        setTimeout(animatePulse, 200);
+    }
+
+    animatePulse();
+}
+
+// Call function after flying to location
+function flyToLocation(lon, lat, zoomLevel) {
+    var view = map.getView();
+    var destination = ol.proj.fromLonLat([lon, lat]);
+
+    view.animate({
+        center: destination,
+        zoom: zoomLevel,
+        duration: 2000
+    });
+
+    setTimeout(() => addPulsingHighlight(lon, lat), 2000);
+}
