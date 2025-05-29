@@ -163,9 +163,10 @@ fetch('layers.php')
       });
 
       map.addLayer(vectorLayer);
-      searchableLayers.push({ layer: vectorLayer, property: layer.property });
-      console.log(searchableLayers);
-
+      // searchableLayers.push({ layer: vectorLayer, property: layer.property });
+      const searchableProps = layer.properties || [layer.property];
+      searchableLayers.push({ layer: vectorLayer, properties: searchableProps });
+   
       // Optional toggle
       $('body').on('click', '#' + layer.id, function () {
         const layerExists = map.getLayers().getArray().includes(vectorLayer);
@@ -190,66 +191,81 @@ fetch('layers.php')
   .catch(error => console.error('Layer loading error:', error));
 
 
+document.getElementById('searchBox').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault(); // Optional: prevent form submission if inside a form
+    searchFeatures();
+  }
+});
+
 
 function populateSuggestions() {
   const datalist = document.getElementById('featureSuggestions');
   datalist.innerHTML = '';
   const uniqueValues = new Set();
 
-  searchableLayers.forEach(({ layer, property }) => {
+  searchableLayers.forEach(({ layer, properties }) => {
     layer.getSource().getFeatures().forEach(feature => {
-      const value = feature.get(property);
-      if (value && !uniqueValues.has(value)) {
-        uniqueValues.add(value);
-        const option = document.createElement('option');
-        option.value = value;
-        datalist.appendChild(option);
-      }
+      properties.forEach(prop => {
+        const value = feature.get(prop);
+        if (value && !uniqueValues.has(value)) {
+          uniqueValues.add(value);
+          const option = document.createElement('option');
+          option.value = value;
+          datalist.appendChild(option);
+        }
+      });
     });
   });
 }
+
 
 
 function searchFeatures() {
   const query = document.getElementById('searchBox').value.toLowerCase();
   let found = false;
+  searchResultSource.clear(); // Remove old marker
 
-  // Clear previous result marker
-  searchResultSource.clear();
-
-  searchableLayers.forEach(({ layer, property }) => {
+  searchableLayers.forEach(({ layer, properties }) => {
     layer.getSource().getFeatures().forEach(feature => {
-      feature.setStyle(null); // Reset any previous styles
+      feature.setStyle(null); // Reset
 
-      const value = feature.get(property)?.toLowerCase();
-      if (value && value === query) {
+      // Check all specified properties
+      const match = properties.some(prop => {
+        const value = feature.get(prop);
+        return value && String(value).toLowerCase() === query;
+      });
+
+      if (match) {
         found = true;
 
-        // Highlight style
+        const extent = feature.getGeometry().getExtent();
+        const center = ol.extent.getCenter(extent);
+
+        // Highlight feature
         feature.setStyle(new ol.style.Style({
           stroke: new ol.style.Stroke({ color: 'blue', width: 3 }),
           fill: new ol.style.Fill({ color: 'rgba(0, 0, 255, 0.1)' })
         }));
 
-        // Zoom to feature
-        const geometry = feature.getGeometry();
-        const extent = geometry.getExtent();
-        map.getView().fit(extent, { duration: 1000, padding: [50, 50, 50, 50],maxZoom: 12 });
-
-        // Add marker at feature center
-        const center = ol.extent.getCenter(extent);
+        // Add marker
         const marker = new ol.Feature({
           geometry: new ol.geom.Point(center),
-          label: feature.get(property) // label text
+          label: properties.map(p => feature.get(p)).filter(Boolean).join(" | ")
         });
-
         searchResultSource.addFeature(marker);
+
+        // Zoom (with max zoom)
+        map.getView().fit(extent, {
+          duration: 1000,
+          padding: [50, 50, 50, 50],
+          maxZoom: 16
+        });
       }
     });
   });
 
-  if (!found) {
-    alert('Feature not found.');
-  }
+  if (!found) alert('Feature not found.');
 }
+
 

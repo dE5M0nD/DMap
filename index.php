@@ -29,7 +29,7 @@
         </div>
       
         <datalist id="featureSuggestions"></datalist>
-      <button onclick="searchFeatures()">Search</button>
+      <!-- <button onclick="searchFeatures()">Search</button> -->
 
         <ul  class="barlinks">
           <li>

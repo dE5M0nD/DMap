@@ -9,6 +9,7 @@ $data = [
       "url" => "data2.geojson",
       "type" => "MultiLineString",
       "property" => "name",
+      "properties" => ["id", "name"],
       "fill" => "rgba(0, 0, 255, 0.2)",
       "stroke" => "#CBCBCB"
     ],
@@ -18,6 +19,7 @@ $data = [
       "url" => "data.geojson",
       "type" => "point",
       "property" => "name",
+      "properties" => ["id", "name"],
       "fill" => "rgba(0, 0, 255, 0.2)",
       "stroke" => "blue"
     ],
@@ -27,6 +29,7 @@ $data = [
       "url" => "data5.geojson",
       "type" => "MultiPolygon",
       "property" => "name",
+      "properties" => ["id", "name"],
       "fill" => "rgba(129, 179, 76, 0.1)",
       "stroke" => "rgba(129, 179, 76, 0.1)"
     ]
