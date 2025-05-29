@@ -103,7 +103,7 @@ fetch('layers.php')
       const vectorLayer = new ol.layer.Vector({
         source: vectorSource,
         style: function(feature) {
-          const label = feature.get(layer.property) || '';
+          const label = feature.get(layer.label) || '';
           const fclass = feature.get('fclass') || '';
 
           if (layer.type === 'point') {
@@ -164,7 +164,7 @@ fetch('layers.php')
 
       map.addLayer(vectorLayer);
       // searchableLayers.push({ layer: vectorLayer, property: layer.property });
-      const searchableProps = layer.properties || [layer.property];
+      const searchableProps = layer.properties || [layer.label];
       searchableLayers.push({ layer: vectorLayer, properties: searchableProps });
    
       // Optional toggle
