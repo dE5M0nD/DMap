@@ -155,10 +155,23 @@ document.querySelector('.zoomout').addEventListener('click', function() {
   div.style.display = div.style.display === 'none' ? 'block' : 'none';
 });
 
+
+ document.getElementById('printBtn').addEventListener('click', function() {
+  const div = document.getElementById('printDialog');
+  div.style.display = div.style.display === 'none' ? 'block' : 'none';
+});
+ 
 document.getElementById('mydivClose').addEventListener('click', function() {
   const div = document.getElementById('mydiv');
   div.style.display =  'none';
 });
+
+
+document.getElementById('printDialogClose').addEventListener('click', function() {
+  const div = document.getElementById('printDialog');
+  div.style.display =  'none';
+});
+
 
 const sectionCount = $('#attr_ > *').length;
 const allIndexes = Array.from({ length: sectionCount }, (_, i) => i);
@@ -242,7 +255,6 @@ map.on('singleclick', function (evt) {
 
 // makes the attribute table draggable
 
-dragElement(document.getElementById("printDialog"));
 
 dragElement(document.getElementById("mydiv"));
 
@@ -281,6 +293,37 @@ function dragElement(elmnt) {
   }
 }
 
+
+document.addEventListener("DOMContentLoaded", function () {
+    const dialog = document.getElementById("printDialog");
+    const titleBar = dialog.querySelector(".printDialogTitle");
+
+    let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    titleBar.style.cursor = "move"; // Optional: make it clear that it's draggable
+
+    titleBar.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        offsetX = e.clientX - dialog.offsetLeft;
+        offsetY = e.clientY - dialog.offsetTop;
+        document.body.style.userSelect = "none"; // Prevent text selection
+    });
+
+    document.addEventListener("mousemove", function (e) {
+        if (isDragging) {
+            dialog.style.position = "absolute";
+            dialog.style.left = (e.clientX - offsetX) + "px";
+            dialog.style.top = (e.clientY - offsetY) + "px";
+        }
+    });
+
+    document.addEventListener("mouseup", function () {
+        isDragging = false;
+        document.body.style.userSelect = ""; // Restore text selection
+    });
+});
 
   function handleFindClick(lat, lon) {
       var latitude= lat;

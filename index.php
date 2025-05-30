@@ -94,45 +94,41 @@
         </div>
 
         <div class="printDialog" id="printDialog">
-            <div  class="printDialogTitle">Print Settings</div>
-            <div class="printdlg_main" style="display:inline">
-              <div>Print Settings </div>
-              <div style="position:absolute; top:25px; right:15px">
-                <img src="img/printer.png" alt="ico" width="35" height="35">
-              </div>
+            <div  class="printDialogTitle">Print Settings  <span  id="printDialogClose"><i class="fa fa-window-close" aria-hidden="true"></i></span></div>
+            <div style="text-align: left;height: 10px;background-color: #fff;margin: 20px"><span style="position:absolute; top:45px; right:15px">
+                <img src="img/printer.png" alt="ico" width="25" height="25">
+              </span> 
+            </div>
+            <div class="printdlg_main" >
 
               <div class="printdlg_advanced" style="display: block;">Print Title 
-              <input type="text" name="printtitle" size="30" value="">
+              <input type="text" name="printtitle" size="30" value="" style="height:20px;">
               
             </div>
 
+            <div class="printdlg_advanced" >
+              <label for="papersize">Paper size  </label>
+              <select name="papersize">
+                <option value="A4" selected="selected">A4  </option>
+                <option value="A3">A3 </option>
+              </select>
+            </div>
+
+
             <div class="printdlg_advanced" style="display: block;">
-      <label for="papersize">Paper size 
-      </label>
-      <select name="papersize">
-        <option value="A4" selected="selected">A4 
-        </option>
-        <option value="A3">A3 
-        </option>
-      </select>
-    </div>
+              <label for="orientation">Page orientation </label>
+              <select name="orientation">
+                  <option value="P" selected="selected">Portrait </option>
+                  <option value="L">Landscape  </option>
+              </select>
+            </div>
 
+              <div class="printdlg_button" style="text-align:center">
+                <input type="button" value="Create Print Page" onclick="">
+                
+              </div>
 
-    <div class="printdlg_advanced" style="display: block;">
-      <label for="orientation">Page orientation 
-      </label>
-      <select name="orientation">
-        <option value="P" selected="selected">Portrait 
-        </option>
-        <option value="L">Landscape 
-        </option>
-      </select>
-    </div>
-
-    <div class="printdlg_button" style="text-align:center">
-      <input type="button" value="Create Print Page" onclick="submit();$('#pmDlgContainer').hide()">
-      
-    </div>
+              
 
             </div>
         </div>

@@ -76,16 +76,20 @@ display: none;}
 }
 
 .printDialog {
-  position: absolute;z-index: 9; width: 350px;height: 427px;left:450px;top:150px; 
-  background-color: #f1f1f1;text-align: center;border: 3px ridge #c0c0c0;
-  width: 350px;overflow-x: auto;display: block;
+  position: absolute;z-index: 9; width: 350px;left:450px;top:150px; 
+  background-color: #fff;text-align: center;border: 3px ridge #c0c0c0;
+  width: 350px;display: block;
 }
 
 .printDialogTitle{background-color: #000000;height: 22px;color: #ffffff;font-family: "sans serif", verdana, arial, helvetica;
 font-size: 11px;font-weight: bold;padding: 4px 0px 0px 6px;vertical-align: bottom; text-align: left;cursor: move;
 }
+.printDialogTitle span{position: absolute;right: 0; margin-right: 10px;cursor: pointer;}
 
-.printdlg_main div{font-size: 14px;font-weight: bold;height: 32px;background-color: #ffffff;border: none;
+.printdlg_main{background-color: #fff;padding: 10px;}
+.printdlg_main div{background-color: #efefef;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc; border-right: 1px solid #ccc;  padding: 3px 5px 2px 2px;
+    margin: 1px;text-align: left;
 }
 
 @media only screen and (max-width: 1000px) {
