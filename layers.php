@@ -21,7 +21,23 @@ $data = [
       "label" => "name",
       "properties" => ["id", "name"],
       "fill" => "rgba(0, 0, 255, 0.2)",
-      "stroke" => "blue"
+      "stroke" => "blue",
+      "rep"  => [  
+                    [  
+                      "var" => "hamlet",
+                      "fill" => "#8B4513",
+                      "stroke" => "",
+                      "icon" =>"▣",
+                      "iconSize" => "26"
+                    ],
+                   [ 
+                      "var" => "village",
+                      "fill" => "#D2B48C",
+                      "stroke" =>"",
+                      "icon" =>"◉",
+                      "iconSize" => "16"
+                   ]
+              ]
     ],
     [
       "id" => "landuse",

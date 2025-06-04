@@ -160,7 +160,7 @@ document.querySelector('.zoomout').addEventListener('click', function() {
   const div = document.getElementById('printDialog');
   div.style.display = div.style.display === 'none' ? 'block' : 'none';
 });
- 
+
 document.getElementById('mydivClose').addEventListener('click', function() {
   const div = document.getElementById('mydiv');
   div.style.display =  'none';
@@ -400,3 +400,13 @@ function flyToLocation(lon, lat, zoomLevel) {
 
     setTimeout(() => addPulsingHighlight(lon, lat), 2000);
 }
+
+
+$(".printpage").on("click",function(){
+    var title = $("#printtitle").val();
+    var papersize = $("#papersize").val();
+    var orientation = $("#orientation").val();
+    var url = 'printpage.php?title='+title+"&psize="+papersize+"&o="+orientation;
+    window.open(url, '_blank');
+    console.log(orientation);
+})

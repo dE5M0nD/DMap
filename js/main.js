@@ -58,11 +58,11 @@
         color: 'rgba(103, 103, 103, 0.8)',
         width: 1,
       }),
-      targetSize: 180,
+      targetSize: 150,
       showLabels: true
     });
 
-   // map.addLayer(graticule);
+   map.addLayer(graticule);
 
 const searchResultSource = new ol.source.Vector();
 const searchResultLayer = new ol.layer.Vector({
@@ -90,6 +90,27 @@ map.addLayer(searchResultLayer);
 
 const searchableLayers = [];
 //  JSON configuration to add dynamic layers to the map
+
+function createCharIcon(char, fontSize = 16, color = 'black') {
+  const canvas = document.createElement('canvas');
+  const size = fontSize * 2;
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+
+  ctx.font = `${fontSize}px sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = color;
+  ctx.fillText(char, size / 2, size / 2);
+
+  return new ol.style.Icon({
+    imgSize: [size, size],
+    src: canvas.toDataURL()
+  });
+}
+
+
 fetch('layers.php')
   .then(response => response.json())
   .then(data => {
@@ -105,13 +126,52 @@ fetch('layers.php')
         style: function(feature) {
           const label = feature.get(layer.label) || '';
           const fclass = feature.get('fclass') || '';
+          // Extract coordinates
+          const coordinates = feature.getGeometry().getCoordinates();
+          const transformedCoords = ol.proj.transform(coordinates, 'EPSG:3857' , 'EPSG:4326');
+          const x = transformedCoords[0];
+          const y = transformedCoords[1];
 
-          if (layer.type === 'point') {
+          // Default styles
+          let fillColor = layer.fill;
+          let strokeColor = layer.stroke;
+          let icoN = "";
+          let icoNSize = 16;
+
+          // Check if the layer has a `rep` object and match fclass
+          if (layer.rep) {
+            const matchingRep = layer.rep.find(repItem => repItem.var === fclass);
+            if (matchingRep) {
+              fillColor = matchingRep.fill || fillColor;
+              strokeColor = matchingRep.stroke || strokeColor;
+              icoN = matchingRep.icon;
+              icoNSize = matchingRep.iconSize;
+            }
+          }
+
+
+        // Then in your style:
+        if (layer.type === 'point') {
+          return new ol.style.Style({
+            image: createCharIcon(icoN, icoNSize, fillColor),
+            text: new ol.style.Text({
+              text: label,
+              offsetY: -10,
+              font: '10px sans-serif',
+              fill: new ol.style.Fill({ color: '#000' }),
+              stroke: new ol.style.Stroke({ color: '#fff', width: 2 })
+            })
+          });
+        }
+
+
+          /*if (layer.type === 'point') {
+
             return new ol.style.Style({
               image: new ol.style.Circle({
                 radius: 5,
-                fill: new ol.style.Fill({ color: layer.fill }),
-                stroke: new ol.style.Stroke({ color: layer.stroke, width: 1 })
+                fill: new ol.style.Fill({ color: fillColor }),
+                stroke: new ol.style.Stroke({ color: strokeColor, width: 1 })
               }),
               text: new ol.style.Text({
                 text: label,
@@ -120,18 +180,12 @@ fetch('layers.php')
                 fill: new ol.style.Fill({ color: '#000' }),
                 stroke: new ol.style.Stroke({ color: '#fff', width: 2 })
               })
-            });
-          }
+            }); 
+          } */
 
           if (layer.type === 'MultiLineString') {
-            let color = layer.stroke;
-            let width = 1;
-            if (fclass === 'primary') {
-              color = '#FF0000';
-              width = 2;
-            }
             return new ol.style.Style({
-              stroke: new ol.style.Stroke({ color, width }),
+              stroke: new ol.style.Stroke({ color: strokeColor, width: 1 }),
               text: new ol.style.Text({
                 text: label,
                 placement: 'line',
@@ -143,12 +197,9 @@ fetch('layers.php')
           }
 
           if (layer.type === 'MultiPolygon') {
-            let fillColor = layer.fill;
-            if (fclass === 'residential') fillColor = 'rgba(129, 179, 76, 0.2)';
-            if (fclass === 'farmland') fillColor = '#B34C4D';
             return new ol.style.Style({
               fill: new ol.style.Fill({ color: fillColor }),
-              stroke: new ol.style.Stroke({ color: layer.stroke, width: 1 }),
+              stroke: new ol.style.Stroke({ color: strokeColor, width: 1 }),
               text: new ol.style.Text({
                 text: label,
                 font: '12px sans-serif',
@@ -163,10 +214,9 @@ fetch('layers.php')
       });
 
       map.addLayer(vectorLayer);
-      // searchableLayers.push({ layer: vectorLayer, property: layer.property });
       const searchableProps = layer.properties || [layer.label];
       searchableLayers.push({ layer: vectorLayer, properties: searchableProps });
-   
+
       // Optional toggle
       $('body').on('click', '#' + layer.id, function () {
         const layerExists = map.getLayers().getArray().includes(vectorLayer);
@@ -177,7 +227,6 @@ fetch('layers.php')
         }
       });
 
-
       // Wait until source is loaded, then populate suggestions
       vectorSource.once('change', () => {
         if (vectorSource.getState() === 'ready') {
@@ -185,10 +234,10 @@ fetch('layers.php')
         }
       });
 
-
     });
   })
   .catch(error => console.error('Layer loading error:', error));
+
 
 
 document.getElementById('searchBox').addEventListener('keydown', function(event) {

@@ -14,7 +14,18 @@
 
     <script src="treeview/jquery.cookie.js"></script>
     <script src="treeview/jquery.treeview.js"></script>
-    <script type="text/javascript" src="treeview/demo.js"></script>
+   <!-- <script type="text/javascript" src="treeview/demo.js"></script> -->
+   <script type="text/javascript">
+    $(document).ready(function(){
+     $("#black, #gray").treeview({
+          control: "#treecontrol",
+          persist: "cookie",
+          cookieId: "treeview-black",
+          collapsed: true,
+          
+        });
+       });
+   </script>
     <script type="text/javascript" src="treeview/jquery.collapsible.js"></script>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v10.5.0/ol.css">
     <script src="https://cdn.jsdelivr.net/npm/ol@v10.5.0/dist/ol.js"></script>
@@ -102,13 +113,13 @@
             <div class="printdlg_main" >
 
               <div class="printdlg_advanced" style="display: block;">Print Title 
-              <input type="text" name="printtitle" size="30" value="" style="height:20px;">
+              <input type="text"  id="printtitle"  name="printtitle" size="30" value="" style="height:20px;">
               
             </div>
 
             <div class="printdlg_advanced" >
               <label for="papersize">Paper size  </label>
-              <select name="papersize">
+              <select name="papersize"  id="papersize" >
                 <option value="A4" selected="selected">A4  </option>
                 <option value="A3">A3 </option>
               </select>
@@ -117,18 +128,16 @@
 
             <div class="printdlg_advanced" style="display: block;">
               <label for="orientation">Page orientation </label>
-              <select name="orientation">
+              <select name="orientation"  id="orientation">
                   <option value="P" selected="selected">Portrait </option>
                   <option value="L">Landscape  </option>
               </select>
             </div>
 
               <div class="printdlg_button" style="text-align:center">
-                <input type="button" value="Create Print Page" onclick="">
+                <input type="button"  class="printpage"  value="Create Print Page" onclick="">
                 
               </div>
-
-              
 
             </div>
         </div>
